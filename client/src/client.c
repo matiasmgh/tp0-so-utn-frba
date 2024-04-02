@@ -23,7 +23,8 @@ int main(void)
 
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
 
-	config = iniciar_config();
+	log_info(logger, "Iniciando la configuracion...");
+	config = iniciar_config(logger);
 
 	// Usando el config creado previamente, leemos los valores del config y los
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
@@ -84,11 +85,14 @@ t_log *iniciar_logger(void)
 	return nuevo_logger;
 }
 
-t_config *iniciar_config(void)
+t_config *iniciar_config(t_log *logger)
 {
 	t_config *nuevo_config;
 
 	nuevo_config = config_create("cliente.config");
+	if(nuevo_config == NULL) {
+		log_error(logger, "No se pudo hallar el archivo de configuracion en el path.");
+	}
 
 	return nuevo_config;
 }
