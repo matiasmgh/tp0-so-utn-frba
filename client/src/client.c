@@ -37,9 +37,11 @@ int main(void)
 			puerto = config_get_string_value(config, "PUERTO");
 		} else {
 			exit(3);
+		log_error(logger, "No se pudo acceder a la key CLAVE de la configuracion.");
 		}
 	} else {
 		exit(3);
+		log_error(logger, "No se pudo acceder al archivo de configuracion.");
 	}
 
 	// Loggeamos el valor de config
@@ -96,6 +98,7 @@ void leer_consola(t_log *logger)
 	char *leido;
 
 	// La primera te la dejo de yapa
+	log_info(logger, "Leyendo de consola. Inserte lo que desee loguear o vacio para continuar.");
 	leido = readline("> ");
 
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
@@ -103,6 +106,8 @@ void leer_consola(t_log *logger)
 		log_info(logger, leido, "%s");
 		leido = readline("> ");
 	}
+
+	log_info(logger, "Continuando...");
 
 	// ¡No te olvides de liberar las lineas antes de regresar!
 	free(0);
